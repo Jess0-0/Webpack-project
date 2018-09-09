@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="index.css" rel="stylesheet" media="screen" />
+   <title>Currency Converter</title>
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+</head>
+<body>
+<!-- 	<div id="mainContent">
+            {{ message }}
+    </div> -->
+      <div id = "app" style = "" align="middle">
+         <h1 align="center">Currency Converter</h1>
+         <span >Enter Amount: </span><input type = "number" v-model.number = "amount" placeholder = "Enter Amount" /><br/><br/>
+         <span>Convert From:</span>
+         <select v-model = "convertfrom" style = "width:300px;font-size:25px;">
+            <option v-for = "(a, index) in items"  v-bind:value = "a.name">{{a.desc}}</option>
+         </select><br><br>
+         <span>Convert To:</span>
+         <select v-model = "convertto" style = "width:300px;font-size:25px;">
+            <option v-for = "(a, index) in items" v-bind:value = "a.name">{{a.desc}}</option>
+         </select><br/><br/>
+         <span id = "display"> {{amount}} {{convertfrom}} equals {{finalamount}} {{convertto}}</span>
+      </div>
+<!--    <div id="app"></div> -->
+   <!-- <script src = "main.js"></script> -->
+</body>
+<script type="text/javascript">
+	 var vm = new Vue({
+    el: '#app',
+    data: {
+    	name: "",
+       items: [
+          {name : "USD", desc:"US Dollar"},
+          {name:"EUR", desc:"Euro"},
+          {name:"INR", desc:"Indian Rupee"},
+          {name:"BHD", desc:"Bahraini Dinar"}
+          ],
+       convertfrom: "EUR",
+       convertto: "USD",
+       amount: "0"
+    },
+    computed :{
+       finalamount:function() {
+          var to = this.convertto;
+          var from = this.convertfrom;
+          var final;
+          switch(from) {
+             case "INR":
+             if (to == "USD") {
+                final = this.amount * 0.016;
+             }
+             if (to == "EUR") {
+                final = this.amount * 0.013;
+             }
+             if (to == "INR") {
+                final = this.amount;
+             }
+             if (to == "BHD") {
+                final = this.amount * 0.0059;
+             }
+             break;
+             case "USD":
+             if (to == "INR") {
+                final = this.amount * 63.88;
+             }
+             if (to == "EUR") {
+                final = this.amount * 0.84;
+             }
+             if (to == "USD") {
+                final = this.amount;
+             }
+             if (to == "BHD") {
+                final = this.amount * 0.38;
+             }
+             break;
+             case "EUR":
+             if (to == "INR") {
+                final = this.amount * 76.22;
+             }
+             if (to == "USD") {
+                final = this.amount * 1.19;
+             }
+             if (to == "EUR") {
+                final = this.amount;
+             }
+             if (to == "BHD") {
+                final = this.amount * 0.45;
+             }
+             break;
+             case "BHD":
+             if (to == "INR") {
+                final = this.amount *169.44;
+             }
+             if (to == "USD") {
+                final = this.amount * 2.65;
+             }
+             if (to == "EUR") {
+                final = this.amount * 2.22;
+             }
+             if (to == "BHD") {
+                final = this.amount;
+             }
+             break
+          }
+          return final;
+       }
+    }
+ });
+</script>
+<!-- <script type="text/javascript">
+        var comp = new Vue({
+            el: '#mainContent',
+            data: {
+                message: 'Hello Vue!'
+            },
+        });
+    </script> -->
+</html>
